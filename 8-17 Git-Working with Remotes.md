@@ -117,3 +117,24 @@ $ git checkout master
 It moved the `HEAD pointer back to point to the master branch`, and it reverted the files in your working directory back to the snapshot that master points to.
 
 - 1.`HEAD`指回 master 分支, 2.工作目录恢复成 master 分支所指向的快照内容.
+
+#### Divergent history
+
+···git
+$ git log --oneline --decorate --graph --all
+···
+
+## Basic Branching and Merging
+
+#### Basic branching
+
+you can run the git checkout command with the `-b` switch:
+相当于新建一个 iss53 分支, 并切换到分支上, `checkout` 检出到某个分支上(HEAD 指向它)
+
+```
+$ git checkout -b iss53
+
+// This is shorthand for
+$ git branch iss53
+$ git checkout iss53
+```
