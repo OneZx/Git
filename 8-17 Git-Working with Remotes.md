@@ -101,4 +101,19 @@ This moves `HEAD` to point to the `testing` branch.
 
 - ps.`HEAD` points to the `current branch`
 
-- test hahah
+这个时候我们已经切换到 testing 分支,如果此时我们修改文件并提交
+
+```
+$ git commit -am 'test branch'
+```
+
+那么我们的 testing 分支向前移动了,但是 master 分支没有,它仍然指向原来的对象
+我们切换回`master`
+
+```git
+$ git checkout master
+```
+
+It moved the `HEAD pointer back to point to the master branch`, and it reverted the files in your working directory back to the snapshot that master points to.
+
+- 1.`HEAD`指回 master 分支, 2.工作目录恢复成 master 分支所指向的快照内容.
