@@ -62,3 +62,43 @@ $ git remote rename test haha
 ```
 $ git remote rm <remote-name>
 ```
+
+## Git Branching
+
+#### Creating a New Branch
+
+let's create a new bracnch called `testing`, this creates a new pointer for you to move around.
+创建了一个可以移动的指针
+
+```git
+$ git branch testing
+```
+
+Git keeps a special pointer called `HEAD`, In Git, this is a pointer to the local branch you're currently on. `git branch` 命令仅仅创建了一个新分支,并不会自动切换到新分支中去,`HEAD`仍指向主分支`master`
+
+We can easily see this by running a simple `git log` command that shows us where the branch pointers are pointing. This option is called `--decorate`
+
+```git
+$ git log --oneline --decorate
+4b8a874 (HEAD -> master, origin/master, testing) add reset to specified commit
+40e04a0 add remote repository command
+451279f 添加撤销操作git reset
+229054e git使用说明md笔记,添加部分
+7186a23 git使用说明md笔记第二章
+```
+
+You can see the “master” and “testing” branches that are right there next to the f30ab commit.
+
+#### Switching Branches
+
+To switch to an existing branch, we run the `git checkout` command.
+
+```bash
+$ git checkout testing
+```
+
+This moves `HEAD` to point to the `testing` branch.
+
+- ps.`HEAD` points to the `current branch`
+
+- test hahah
