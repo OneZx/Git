@@ -138,3 +138,23 @@ $ git checkout -b iss53
 $ git branch iss53
 $ git checkout iss53
 ```
+
+在分支中修改完后提交`git commit -am ''`,再切回主分支中合并 testing 分支`git merge testing`
+
+```
+VueFe@Thinkpad MINGW64 /d/Notes/Git (master)
+$ git merge testing
+Updating 4b8a874..de51520
+Fast-forward
+ 8-17 Git-Working with Remotes.md | 76 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+```
+
+`To phrase that another way,` when you try to merge one commit with a commit that can be reached by following the first commit’s history, Git simplifies things by moving the pointer forward because there is no divergent work to merge together — this is called a “fast-forward.”
+当我们合并两个分支时,如果顺着一个分支走下去能够达到另一个分支,namegit 在合并两者的时候,只会简单的将指针向前推进(指针右移) 这样的合并不会有冲突
+
+#### Deleting Branch
+
+```
+$ git branch -d testing
+```
