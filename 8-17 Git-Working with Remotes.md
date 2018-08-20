@@ -120,9 +120,9 @@ It moved the `HEAD pointer back to point to the master branch`, and it reverted 
 
 #### Divergent history
 
-···git
+```git
 $ git log --oneline --decorate --graph --all
-···
+```
 
 ## Basic Branching and Merging
 
@@ -137,6 +137,14 @@ $ git checkout -b iss53
 // This is shorthand for
 $ git branch iss53
 $ git checkout iss53
+```
+
+- `git branch`查看当前分支, 它会列出所有分支,当前分支前有一个`*`号
+
+```
+git branch
+  *iss53
+  master
 ```
 
 在分支中修改完后提交`git commit -am ''`,再切回主分支中合并 testing 分支`git merge testing`
