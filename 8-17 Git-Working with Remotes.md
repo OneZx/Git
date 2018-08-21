@@ -1,4 +1,4 @@
-#### Showing Your Remotes
+#### 1. Showing Your Remotes
 
 `git remote`. It lists the shortnames of each remote handle you’ve specified.
 列出指定的每一个远程服务器的简写,如果已经克隆了自己的 repository,那么至少能看到`origin`,这是 clone repository 服务器的默认名字
@@ -16,7 +16,7 @@ origin  git@github.com:OneZx/Git.git (fetch)
 origin  git@github.com:OneZx/Git.git (push)
 ```
 
-#### Adding Remote Repositories
+#### 2. Adding Remote Repositories
 
 - `git remote add <shortname> <url>` ,指定一个远程仓库的简写名称 shortname
 - `git remote -v` 查看刚才添加的
@@ -31,7 +31,7 @@ If your current branch is set up to track a remote branch (see the next section 
 
 - `git pull`命令会`fetch`数据并且 `merge` remote branch 到 current branch,运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
 
-#### Pushing to Your Remotes
+#### 3. Pushing to Your Remotes
 
 - `git push [remote-name] [branch-name]` 将 master 分支推送到 origin 服务器时(git clone 一个 repository 会自动设置好这两个名字)
 
@@ -47,7 +47,7 @@ $ git push origin master
 $ git remote show origin  // show <remote-name>
 ```
 
-#### Renaming and Removing Remotes
+#### 4. Renaming and Removing Remotes
 
 - 重命名 名为 test 的远程仓库 为 haha
 
@@ -63,9 +63,9 @@ $ git remote rename test haha
 $ git remote rm <remote-name>
 ```
 
-## Git Branching
+## 2. Git Branching
 
-#### Creating a New Branch
+#### 1. Creating a New Branch
 
 let's create a new bracnch called `testing`, this creates a new pointer for you to move around.
 创建了一个可以移动的指针
@@ -89,7 +89,7 @@ $ git log --oneline --decorate
 
 You can see the “master” and “testing” branches that are right there next to the f30ab commit.
 
-#### Switching Branches
+#### 2. Switching Branches
 
 To switch to an existing branch, we run the `git checkout` command.
 
@@ -118,15 +118,27 @@ It moved the `HEAD pointer back to point to the master branch`, and it reverted 
 
 - 1.`HEAD`指回 master 分支, 2.工作目录恢复成 master 分支所指向的快照内容.
 
-#### Divergent history
+#### 3. Divergent history
 
 ```git
 $ git log --oneline --decorate --graph --all
 ```
 
-## Basic Branching and Merging
+it will print out the history of your commits, showing where your branch pointers are and how your history has diverged.
 
-#### Basic branching
+```
+$ git log --oneline --decorate --graph --all
+* c2b9e (HEAD, master) made other changes
+| * 87ab2 (testing) made a change
+|/
+* f30ab add feature #32 - ability to add new formats to the
+* 34ac2 fixed bug #1328 - stack overflow under certain conditions
+* 98ca9 initial commit of my project
+```
+
+## 3. Basic Branching and Merging
+
+#### 1. Basic branching
 
 you can run the git checkout command with the `-b` switch:
 相当于新建一个 iss53 分支, 并切换到分支上, `checkout` 检出到某个分支上(HEAD 指向它)
@@ -159,10 +171,83 @@ Fast-forward
 ```
 
 `To phrase that another way,` when you try to merge one commit with a commit that can be reached by following the first commit’s history, Git simplifies things by moving the pointer forward because there is no divergent work to merge together — this is called a “fast-forward.”
-当我们合并两个分支时,如果顺着一个分支走下去能够达到另一个分支,namegit 在合并两者的时候,只会简单的将指针向前推进(指针右移) 这样的合并不会有冲突
 
-#### Deleting Branch
+![image](8E51D014CA0442BB97369EE01C14E13F)
+
+当我们合并两个分支时,如果顺着一个分支走下去能够达到另一个分支,那么 git 在合并两者的时候,只会简单的将指针向前推进(指针右移) 这样的合并不会有冲突
+
+![image](F913068287034212BFCD808750356AF0)
+
+#### 2. Deleting Branch
+
+删除分支`git branch -d testing`
 
 ```
-$ git branch -d testing
+$ git branch -d hotfix
 ```
+
+之后我们切回#53 继续修改,并准备合并 iss53 到 master
+
+```
+$ git checkout master
+Switched to branch 'master'
+$ git merge iss53
+Merge made by the 'recursive' strategy.
+index.html |    1 +
+1 file changed, 1 insertion(+)
+```
+
+![image](A5BC337FEC1B451CB48C149E7CDE448E)
+
+In this case,`master`分支所在的提交并不是`iss53`分支所在提交的直接祖先.Git 会使用两个分支的末端所指的快照`C4`和`C5`以及两个分支的 Common Ancestor `C2`,do a simple three-way merge
+
+![image](797FB111FB9048DEBCCDD3016DCC362F)
+
+Instead of just moving the branch pointer forward, Git creates a new snapshot that results from this three-way merge and automatically creates a new commit that points to it. This is referred to as a merge commit, and is special in that it has more than one parent.
+三方合并的与之前的 fast-forward 不同之处在于它(c6)不止有一个父提交(c4,c5)
+
+合并完后我们可以删掉`iss53`分支了`git branch -d iss53`
+
+#### 3. Basic Merge Conflicts
+
+If you changed the same part of the same file differently in the two branches you’re merging together, Git won’t be able to merge them cleanly.
+当我们在不同分支中对同一个文件的同一个部分进行了不同的修改,并试图合并两个分支的时候,就会产生冲突`merge conflict`
+
+```
+$ git merge iss53
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+At this point,git hasn’t automatically created a new merge commit.It has paused the process while you resolve the conflict.If you want to see which files are unmerged at any point after a merge conflict, you can run `git status`:
+
+```bash
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+    both modified:      index.html
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+Git adds standard conflict-resolution markers to the files that have conflicts, so you can open them manually and resolve those conflicts. Your file contains a section that looks something like this:
+
+```
+.<<<<<<< HEAD:index.html
+<div id="footer">contact : email.support@github.com</div>
+=======
+<div id="footer">
+ please contact us at support@github.com
+</div>
+>>>>>>> iss53:index.html
+```
+
+`HEAD`指示的版本 version(master 分支所在位置,因为当我们运行 merge 命令时已经检出到这个分支)在`=======`区域上半部分,`iss53`所指示的版本在`=======`下半部分,In order to resolve the conflict, you have to either choose one side or the other or merge the contents yourself.
+
+解决完冲突后,我们对每个文件使用`git add`来标记冲突已解决.
