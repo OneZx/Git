@@ -170,6 +170,8 @@ Fast-forward
  1 file changed, 76 insertions(+)
 ```
 
+-ps. `git merge --no-ff testing` 使用`--no-ff`,会在 master 分支上生成一个新的节点,保留分支的 commit 历史.
+
 `To phrase that another way,` when you try to merge one commit with a commit that can be reached by following the first commit’s history, Git simplifies things by moving the pointer forward because there is no divergent work to merge together — this is called a “fast-forward.”
 
 ![image](8E51D014CA0442BB97369EE01C14E13F)
