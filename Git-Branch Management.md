@@ -65,14 +65,14 @@ Many Git developers have a workflow that embraces this approach, such as having 
 
 In reality, we’re talking about `pointers` moving up the line of commits you’re making. `The stable branches are farther down the line in your commit history, and the bleeding-edge branches are farther up the history.`
 
-![1534904252821](.\assets\1534904252821.png)
+![1534904252821](./assets/1534904252821.png)
 
 It’s generally easier to think about them as `work silos`, where sets of commits graduate to a more stable silo when they’re fully tested.
 
-![1534904498403](.\assets\1534904498403.png)
+![1534904498403](./assets/1534904498403.png)
 
 ### 2.2Git-flow
 
-![1534906337000](.\assets\1534906337000.png)
+![1534906337000](./assets/1534906337000.png)
 
 ## 3. Remote Branches
