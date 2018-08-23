@@ -89,6 +89,22 @@ $ git log --oneline --decorate
 
 You can see the “master” and “testing” branches that are right there next to the f30ab commit.
 
+**查看项目分支(本地和远程)**
+
+- `git branch -a`
+
+**删除本地分支**
+
+- `git branch -d <branchName>`
+
+**删除远程分支**
+
+- `git push orign --delete <branchName>`
+
+**本地关联远程分支**
+
+- `$ git push --set-upstream origin <localBranchName>`
+
 #### 2. Switching Branches
 
 To switch to an existing branch, we run the `git checkout` command.
