@@ -57,7 +57,7 @@ If you really do want to delete the branch and lose that work, you can force it 
 
 ## 2. Branching Workflows
 
-### 2.1Long-Running Branches
+### 2.1 Long-Running Branches
 
 Because Git uses a simple `three-way merge`, merging from one branch into another multiple times over a long period is generally easy to do. This means you can have several branches that are always open and that you use for different stages of your development cycle; you can merge regularly from some of them into others.
 
@@ -71,8 +71,10 @@ It’s generally easier to think about them as `work silos`, where sets of commi
 
 ![1534904498403](./assets/1534904498403.png)
 
-### 2.2Git-flow
+### 2.2 Git-flow
 
 ![1534906337000](./assets/1534906337000.png)
+
+- Check more details [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 
 ## 3. Remote Branches
